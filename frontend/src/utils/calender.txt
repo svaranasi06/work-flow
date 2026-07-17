@@ -1,0 +1,224 @@
+LEAVE CALENDAR - QUICK REVISION NOTES
+=====================================
+
+1. PURPOSE
+----------
+The Leave Calendar allows the logged-in employee to:
+- View personal PENDING and APPROVED leave
+- View company holidays and weekends
+- Navigate to previous/next months
+- Return to today
+- Select a date and view details
+- Refresh monthly data
+- Navigate to My Leaves to apply for leave
+
+The calendar is leave-focused. It does not include attendance, check-in, check-out, regularization, outdoor duty, or work-from-home attendance.
+
+2. MAIN FILES
+-------------
+CalendarPage.tsx
+- Manages state, API loading, month navigation, selected date, errors, and UI rendering.
+
+calendar.util.ts
+- Generates the complete calendar grid and attaches matching leaves, holidays, weekend, current-month, and today information to each date.
+
+calendar.service.ts
+- Calls GET /api/v1/calendar/monthly with month and year query parameters.
+
+calendar.types.ts
+- Defines CalendarLeave, CalendarHoliday, CalendarData, CalendarResponse, and CalendarDay types.
+
+calendar.css
+- Styles the grid, events, selected date, today, weekends, holidays, side panels, and responsive layout.
+
+3. COMPLETE FLOW
+----------------
+User opens Calendar
+-> visibleMonth starts with the current month
+-> selectedDateKey starts with today's date
+-> useEffect calls loadCalendarData()
+-> getMonthlyCalendar(month, year) calls the backend
+-> Axios attaches the access token
+-> Backend returns personal leaves, holidays, and weekend dates
+-> Data is stored in calendarData
+-> buildCalendarDays() generates all visible date cells
+-> Leaves and holidays are matched to their dates
+-> Grid is rendered
+-> Clicking a date updates selectedDateKey
+-> Selected-day details appear in the side panel
+
+4. IMPORTANT STATE
+------------------
+visibleMonth
+- Stores the month currently displayed.
+- Uses the first day of that month for consistent calculations.
+
+calendarData
+- Stores backend leaves, holidays, weekends, month, and year.
+
+selectedDateKey
+- Stores the selected date in yyyy-MM-dd format.
+
+isLoading
+- Controls the loading screen.
+
+errorMessage
+- Stores an API or fallback error message.
+
+5. IMPORTANT FUNCTIONS
+----------------------
+formatDateKey(date)
+- Converts a JavaScript Date to yyyy-MM-dd.
+- This matches the backend date format.
+
+buildCalendarDays(visibleMonth, calendarData)
+- Finds the first and last day of the month.
+- Extends the range from Sunday to Saturday.
+- Generates every visible date.
+- Marks current-month dates, today, and weekends.
+- Attaches matching leaves and holidays.
+
+loadCalendarData()
+- Converts JavaScript's zero-based month to backend month using getMonth() + 1.
+- Calls the monthly Calendar API.
+- Stores the response and handles loading/errors.
+
+handlePreviousMonth()
+- Subtracts one month and triggers a new API request.
+
+handleNextMonth()
+- Adds one month and triggers a new API request.
+
+handleToday()
+- Returns to the current month and selects today's date.
+
+handleDaySelection(day)
+- Selects a date.
+- If the date belongs to an adjacent month, switches to that month.
+
+getDayClassName(day)
+- Dynamically adds CSS classes for outside month, weekend, today, selected date, and holiday.
+
+6. CALENDAR GRID LOGIC
+----------------------
+startOfMonth() and endOfMonth()
+- Find the selected month's boundaries.
+
+startOfWeek(..., weekStartsOn: 0)
+- Extends the first row back to Sunday.
+
+endOfWeek(..., weekStartsOn: 0)
+- Extends the final row through Saturday.
+
+eachDayOfInterval()
+- Generates all dates shown in the calendar.
+
+Weekend Set
+- new Set(calendarData.weekends) allows quick date lookup with has(dateKey).
+
+Leave matching condition
+- leave.start_date <= dateKey AND leave.end_date >= dateKey
+- This makes multi-day leave appear on every applicable date.
+
+Holiday matching condition
+- holiday.holiday_date === dateKey
+
+7. DISPLAY RULES
+----------------
+APPROVED leave
+- Green styling.
+
+PENDING leave
+- Gold styling.
+
+Holiday
+- Purple styling.
+
+Weekend
+- Grey styling.
+
+Today
+- Highlighted date circle/border.
+
+Selected date
+- Green selection border/background.
+
+Rejected and cancelled requests
+- Not displayed as active calendar events; they remain in My Leaves history.
+
+Only one holiday and two leave events are shown inside a small date cell to avoid overcrowding. If more leave events exist, the cell displays a '+N more' label.
+
+8. SELECTED-DATE PANEL
+----------------------
+When a date is selected, the panel shows:
+- Holiday name, type, and description
+- Leave type and status
+- Half-day indicator
+- Emergency indicator
+- Leave reason
+
+If no event exists, the panel shows an empty-state message.
+
+9. API FLOW
+-----------
+CalendarPage
+-> calendar.service.ts
+-> Shared Axios instance
+-> Authorization header added automatically
+-> GET /api/v1/calendar/monthly?month=7&year=2026
+-> Backend authenticates the user
+-> Backend returns the user's active leaves, active holidays, and weekends
+-> Typed response returns to CalendarPage
+
+If the access token expires:
+-> Axios receives 401
+-> Calls refresh-token API using the HttpOnly cookie
+-> Stores the new access token
+-> Retries the Calendar request
+
+10. WHY LOGIC IS SEPARATED
+--------------------------
+- Service: API communication
+- Utility: date calculations and event matching
+- Page: state, navigation, selection, and rendering
+- Types: compile-time data safety
+- CSS: presentation and responsive design
+
+This separation improves readability, maintenance, testing, and reuse.
+
+11. IMPORTANT REVIEW QUESTIONS
+------------------------------
+Q: Why add 1 to getMonth()?
+A: JavaScript months are 0-11, while the backend expects 1-12.
+
+Q: Why use yyyy-MM-dd?
+A: It matches the backend format and allows reliable ISO date comparison.
+
+Q: Why use a Set for weekends?
+A: It provides simple and efficient membership checks for each date cell.
+
+Q: Why include adjacent-month dates?
+A: It completes Sunday-to-Saturday weekly rows and gives a standard calendar layout.
+
+Q: Why use useMemo?
+A: Calendar cells and selected-day data are recalculated only when their dependencies change.
+
+Q: Why use useCallback for loading?
+A: It provides a stable asynchronous function for useEffect and refresh actions.
+
+Q: Why not show rejected/cancelled leave?
+A: The calendar is for active planning. Rejected and cancelled requests remain in history.
+
+Q: How is the request secured?
+A: Axios sends the access token; the backend identifies the logged-in user and returns only that user's calendar data.
+
+Q: Why does Apply Leave navigate to My Leaves?
+A: The Apply Leave modal currently belongs to My Leaves, so Calendar uses React Router navigation to that page.
+
+12. ONE-MINUTE MANAGER EXPLANATION
+----------------------------------
+I implemented a dynamic Leave Calendar using React, TypeScript, Axios, date-fns, and React Router. The page sends the selected month and year to a protected backend endpoint and receives the logged-in employee's pending/approved leave, company holidays, and weekend dates. A separate utility generates complete Sunday-to-Saturday calendar rows and maps leave ranges and holidays to the correct dates. React state controls the visible month, selected date, loading, and errors. Users can navigate between months, return to today, refresh data, select a date for details, and move to My Leaves to apply.
+
+13. VERY SHORT ANSWER
+---------------------
+The Calendar page retrieves monthly leave, holiday, and weekend data. A utility converts the response into complete date cells, and the page handles month navigation, date selection, event display, refresh, Today navigation, and selected-day details.

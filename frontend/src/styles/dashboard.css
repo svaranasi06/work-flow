@@ -1,0 +1,476 @@
+.dashboard-page {
+  display: grid;
+  gap: 28px;
+}
+
+.dashboard-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.page-eyebrow {
+  margin: 0 0 6px;
+  color: #a67729;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.dashboard-page-header h1,
+.dashboard-section-heading h2 {
+  margin: 0;
+  color: #19382c;
+}
+
+.dashboard-page-header h1 {
+  font-size: clamp(1.8rem, 3vw, 2.45rem);
+}
+
+.dashboard-page-header > div > p:last-child,
+.dashboard-section-heading p {
+  margin: 8px 0 0;
+  color: #748079;
+  line-height: 1.5;
+}
+
+.dashboard-refresh-button,
+.dashboard-state-card button {
+  min-height: 43px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
+  color: #ffffff;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #1c6549;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.dashboard-refresh-button:hover,
+.dashboard-state-card button:hover {
+  background: #164f3a;
+}
+
+.dashboard-highlight-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 20px;
+}
+
+.dashboard-pending-card,
+.dashboard-user-summary {
+  min-height: 155px;
+  padding: 26px;
+  border-radius: 20px;
+}
+
+.dashboard-pending-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #ffffff;
+  background:
+    radial-gradient(
+      circle at right top,
+      rgba(224, 184, 88, 0.2),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #123f2f,
+      #1e684d
+    );
+}
+
+.dashboard-pending-icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  color: #f0cc77;
+  border: 1px solid rgba(240, 204, 119, 0.35);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  place-items: center;
+}
+
+.dashboard-pending-card span,
+.dashboard-user-summary span {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dashboard-pending-card strong {
+  display: block;
+  margin: 5px 0;
+  font-size: 2.35rem;
+}
+
+.dashboard-pending-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dashboard-user-summary {
+  border: 1px solid #dce5e0;
+  background: #ffffff;
+  box-shadow: 0 14px 35px rgba(31, 70, 53, 0.06);
+}
+
+.dashboard-user-summary span {
+  color: #a67729;
+}
+
+.dashboard-user-summary strong {
+  display: block;
+  margin: 14px 0 6px;
+  color: #1d352b;
+  font-size: 1.35rem;
+}
+
+.dashboard-user-summary p {
+  margin: 0 0 7px;
+  color: #55635d;
+  font-weight: 700;
+}
+
+.dashboard-user-summary small {
+  color: #7a8580;
+}
+
+.dashboard-section {
+  display: grid;
+  gap: 17px;
+}
+
+.dashboard-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-section-heading h2 {
+  font-size: 1.15rem;
+}
+
+.dashboard-section-heading p {
+  font-size: 0.86rem;
+}
+
+.leave-balance-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.leave-balance-card {
+  position: relative;
+  min-height: 182px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid #dde5e1;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(31, 70, 53, 0.05);
+}
+
+.leave-balance-card::after {
+  position: absolute;
+  right: -28px;
+  bottom: -35px;
+  width: 105px;
+  height: 105px;
+  content: "";
+  border-radius: 50%;
+  background: rgba(36, 108, 80, 0.06);
+}
+
+.leave-balance-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 18px;
+  color: #1e644a;
+  border-radius: 12px;
+  background: #e9f3ee;
+  place-items: center;
+}
+
+.leave-balance-card > span {
+  color: #66736d;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.leave-balance-card > strong {
+  display: block;
+  margin: 5px 0;
+  color: #183b2d;
+  font-size: 2rem;
+}
+
+.leave-balance-card > p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #7d8782;
+  font-size: 0.78rem;
+}
+
+.leave-balance-card-paternity
+  .leave-balance-icon {
+  color: #8b6524;
+  background: #faf2dc;
+}
+
+.leave-balance-card-bereavement
+  .leave-balance-icon {
+  color: #7b4545;
+  background: #f7eaea;
+}
+
+.leave-balance-card-compoff
+  .leave-balance-icon {
+  color: #415f83;
+  background: #eaf0f7;
+}
+
+.dashboard-content-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: 20px;
+}
+
+.dashboard-panel {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #dce5e0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 14px 35px rgba(31, 70, 53, 0.05);
+}
+
+.recent-leave-list,
+.upcoming-holiday-list {
+  display: grid;
+  margin-top: 20px;
+}
+
+.recent-leave-item,
+.holiday-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid #edf1ef;
+}
+
+.recent-leave-item:last-child,
+.holiday-item:last-child {
+  border-bottom: 0;
+}
+
+.recent-leave-date-icon {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  flex: 0 0 auto;
+  color: #1f684d;
+  border-radius: 12px;
+  background: #ebf4ef;
+  place-items: center;
+}
+
+.recent-leave-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.recent-leave-details > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.recent-leave-details strong,
+.holiday-item > div:last-child strong {
+  color: #263a31;
+  font-size: 0.9rem;
+}
+
+.recent-leave-details p,
+.holiday-item p {
+  margin: 5px 0;
+  color: #68756f;
+  font-size: 0.8rem;
+}
+
+.recent-leave-details small {
+  color: #8a948f;
+}
+
+.leave-status {
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.leave-status-approved {
+  color: #176040;
+  background: #e5f4eb;
+}
+
+.leave-status-pending {
+  color: #8b6217;
+  background: #fbf0cf;
+}
+
+.leave-status-rejected {
+  color: #9a3030;
+  background: #fbe5e5;
+}
+
+.leave-status-cancelled {
+  color: #5e6964;
+  background: #e9edeb;
+}
+
+.holiday-date {
+  display: grid;
+  width: 52px;
+  height: 55px;
+  flex: 0 0 auto;
+  align-content: center;
+  justify-items: center;
+  color: #ffffff;
+  border-radius: 12px;
+  background: #1f674c;
+}
+
+.holiday-date strong {
+  font-size: 1.1rem;
+}
+
+.holiday-date span {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dashboard-empty-state {
+  display: grid;
+  min-height: 210px;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: #89948f;
+  text-align: center;
+}
+
+.dashboard-empty-state strong {
+  color: #4b5b54;
+}
+
+.dashboard-empty-state p {
+  max-width: 280px;
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.dashboard-state-card {
+  min-height: 460px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  color: #66736d;
+  text-align: center;
+}
+
+.dashboard-state-card h1,
+.dashboard-state-card p {
+  margin: 0;
+}
+
+.dashboard-state-card h1 {
+  color: #263a31;
+}
+
+.dashboard-state-card p {
+  max-width: 440px;
+  line-height: 1.6;
+}
+
+.dashboard-state-card button {
+  margin-top: 10px;
+}
+
+.dashboard-loader {
+  width: 44px;
+  height: 44px;
+  border: 4px solid #dbe6e1;
+  border-top-color: #1c6549;
+  border-radius: 50%;
+  animation:
+    dashboard-loader-rotation 700ms linear infinite;
+}
+
+.dashboard-error-icon {
+  color: #aa3c3c;
+}
+
+@keyframes dashboard-loader-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1180px) {
+  .leave-balance-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-highlight-grid,
+  .dashboard-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .dashboard-page-header {
+    display: grid;
+  }
+
+  .dashboard-refresh-button {
+    width: fit-content;
+  }
+
+  .leave-balance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-pending-card {
+    align-items: flex-start;
+  }
+}
