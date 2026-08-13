@@ -1,20 +1,22 @@
-# Node dependencies
-backend/node_modules/
-frontend/node_modules/
 
-# Production build output
 backend/dist/
-frontend/dist/
-
-# Real environment files
 backend/.env
+backend/node_modules/
+*.backup
+backups/
+deployment-secrets.env
+.DS_Store
+environment.sh
+frontend/dist/
 frontend/.env.local
 frontend/.env.production
-
-# Logs
+frontend/node_modules/
+# Local deployment state and credentials
 *.log
+# Logs
+# Node dependencies
 npm-debug.log*
-
 # OS and editor files
-.DS_Store
+# Production build output
+# Real environment files
 .vscode/

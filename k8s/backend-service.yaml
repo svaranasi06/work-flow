@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: leave-backend-service
+  namespace: leave-management
+  labels:
+    app: leave-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: leave-backend
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+      protocol: TCP

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: leave-backend-config
+  namespace: leave-management
+  labels:
+    app: leave-backend
+data:
+  PORT: "5000"
+  NODE_ENV: "development"
+  CLIENT_URL: "http://8.234.80.72"
+  DB_HOST: "127.0.0.1"
+  DB_PORT: "3306"
+  ACCESS_TOKEN_EXPIRES_IN: "15m"
+  REFRESH_TOKEN_EXPIRES_IN: "7d"
